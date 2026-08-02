@@ -1,14 +1,29 @@
 ---
 - name: Install network boundary packages
-  ansible.builtin.apt: {name: [nftables, squid, dnsmasq], state: present, update_cache: true}
+  ansible.builtin.apt:
+    name: [nftables, squid, dnsmasq]
+    state: present
+    update_cache: true
 - name: Install nftables policy
-  ansible.builtin.copy: {src: nftables.conf, dest: /etc/nftables.conf, mode: '0644'}
+  ansible.builtin.copy:
+    src: nftables.conf
+    dest: /etc/nftables.conf
+    mode: '0644'
   notify: Restart nftables
 - name: Install Squid policy
-  ansible.builtin.copy: {src: squid.conf, dest: /etc/squid/squid.conf, mode: '0644'}
+  ansible.builtin.copy:
+    src: squid.conf
+    dest: /etc/squid/squid.conf
+    mode: '0644'
   notify: Restart squid
 - name: Enable forwarding
-  ansible.posix.sysctl: {name: net.ipv4.ip_forward, value: '1', sysctl_set: true}
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    sysctl_set: true
 - name: Enable boundary services
-  ansible.builtin.service: {name: "{{ item }}", enabled: true, state: started}
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
   loop: [nftables, squid, dnsmasq]
