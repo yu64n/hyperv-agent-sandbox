@@ -1,6 +1,15 @@
+---
 all:
   children:
     router:
-      hosts: {agent-router: {ansible_host: 10.20.0.1, ansible_user: sandbox-admin}}
+      hosts:
+        agent-router:
+          ansible_host: 10.20.0.1
+          ansible_user: sandbox-admin
     sandbox:
-      hosts: {agent-sandbox: {ansible_host: 10.20.0.10, ansible_user: agent, ansible_ssh_common_args: '-o ProxyJump=sandbox-admin@10.20.0.1'}}
+      hosts:
+        agent-sandbox:
+          ansible_host: 10.20.0.10
+          ansible_user: agent
+          ansible_ssh_common_args: >-
+            -o ProxyJump=sandbox-admin@10.20.0.1
