@@ -1,0 +1,7 @@
+version: 2
+ethernets:
+  lan:
+    match: {name: "eth0"}
+    addresses: [10.20.0.10/24]
+    routes: [{to: default, via: 10.20.0.1}]
+    nameservers: {addresses: [10.20.0.1]}

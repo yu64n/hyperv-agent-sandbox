@@ -1,0 +1,16 @@
+---
+- name: Install development tools
+  ansible.builtin.apt: {name: [docker.io, git, curl, jq], state: present, update_cache: true}
+- name: Configure system proxy
+  ansible.builtin.copy:
+    dest: /etc/profile.d/sandbox-proxy.sh
+    mode: '0644'
+    content: "export HTTP_PROXY=http://10.20.0.1:3128\nexport HTTPS_PROXY=http://10.20.0.1:3128\nexport NO_PROXY=localhost,127.0.0.1\n"
+- name: Configure Docker proxy directory
+  ansible.builtin.file: {path: /etc/systemd/system/docker.service.d, state: directory, mode: '0755'}
+- name: Configure Docker proxy
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/docker.service.d/proxy.conf
+    mode: '0644'
+    content: "[Service]\nEnvironment=\"HTTP_PROXY=http://10.20.0.1:3128\" \"HTTPS_PROXY=http://10.20.0.1:3128\" \"NO_PROXY=localhost,127.0.0.1\"\n"
+  notify: Restart Docker
