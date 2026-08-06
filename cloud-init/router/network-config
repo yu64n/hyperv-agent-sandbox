@@ -1,0 +1,8 @@
+version: 2
+ethernets:
+  wan:
+    match: {name: "eth0"}
+    dhcp4: true
+  lan:
+    match: {name: "eth1"}
+    addresses: [10.20.0.1/24]

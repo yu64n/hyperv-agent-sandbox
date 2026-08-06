@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: sandbox-admin
+    groups: [sudo]
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys: ["REPLACE_WITH_ADMIN_PUBLIC_KEY"]
+package_update: true
+packages: [python3, openssh-server]

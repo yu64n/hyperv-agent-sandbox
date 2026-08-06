@@ -1,0 +1,3 @@
+# Operations
+
+Before `make hyperv`, build the NoCloud seed ISOs and configure separate, Windows-accessible Debian and Ubuntu installer ISO paths. Install each guest with both its bootable installer and non-bootable seed attached. Use `make apply` after installation and policy changes and `make test` before work. Publish local-only services using SSH `LocalForward`. Export work with Git bundles, rotate sandbox credentials after every lifecycle, retain Squid logs as required, and recreate rather than repair a suspected compromised VM. `make destroy` removes both VM objects and their owned VHDX files so the next lifecycle starts with blank disks; preserve any required work before teardown.
